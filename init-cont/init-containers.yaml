@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-pod
+  namespace: default
+spec:
+  containers:
+  - command:
+    - sh
+    - -c
+    - echo The process is running! && sleep 600
+    image: busybox:latest
+    name: test-container
+  initContainers: # Init containers are containers that run before the main containers.
+  - image: busybox # They are used to initialize the pod before the main containers are started. They are used to download files, initialize databases, etc.
+    name: init-container
+    command:
+      - "sleep"
+      - "10"

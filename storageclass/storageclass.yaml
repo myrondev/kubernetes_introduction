@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+    name: my-storageclass
+provisioner: kubernetes.io/aws-ebs
+
+
+# Setting the reclaim policy to Delete means that the storage volume is deleted when it is no longer required by the pod.
+
+# Setting the reclaim policy to Retain means that the storage volume is retained when no longer required by the pod and can be reused by other pods.

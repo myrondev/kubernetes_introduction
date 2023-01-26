@@ -1,0 +1,9 @@
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: example-cm
+data:
+  # Configuration values can be set as key-value properties
+  database: mongodb
+  user: test

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wp-pv-claim
+  labels:
+    app: wordpress
+spec:
+  accessModes:
+    - ReadWriteOnce # ReadWriteMany, ReadOnlyMany # the volume can be mounted as read-write by a single node.
+  resources:        # ReadWriteOnce access mode still can allow multiple pods to access the volume when the pods are running on the same node.
+    requests:
+      storage: 20Gi
+
+# check persistent volume status in k9s, should be bound
+# PersistentVolumeClaim will create a PersistentVolume if none exists

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: busybox-test-pod
+spec:
+  replicas: 3 # Number of pods to be created
+  selector:
+    matchLabels:
+      name: busybox-test-pod # This is the label that will be used to identify the pods created by this deployment
+  minReadySeconds: 5 # This will make sure that the pod is ready for 5 seconds before it is considered ready.
+  strategy:
+    type: RollingUpdate # This is the default strategy. It will create a new pod and then kill the old pod. For updating images.
+    rollingUpdate:
+      maxSurge: 1 # This will make sure that there is always 1 extra pod running. 1 extra pod.
+      maxUnavailable: 1 #  Declares the maximum number (or percentage) of unavailable pods during the update.
+  template:
+    metadata:
+      labels:
+        name: busybox-test-pod
+    spec:
+      containers:
+      - name: busybox-test-pod
+        image: busybox:1.161
+        command:
+        - sh
+        - "-c"
+        - echo Hello Team! && sleep 1000 # This will print Hello Team! and then sleep for 3600 seconds. This is a good way to test if the pod is running or not.

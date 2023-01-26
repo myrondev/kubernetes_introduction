@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+  restartPolicy: Always # Always, OnFailure, Never # Always is default a it will restart the pod if it fails even with 0 exit code, good for web servers.
+
+# We can also create pods by using imperative commands like: kubectl run nginx --image=nginx:latest --port=80
+
+# Another way: kubectl run redis --image=redis:7.0.7 --dry-run=client -o yaml > redis.yaml

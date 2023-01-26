@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: test-service
+spec:
+  type: NodePort
+  selector:
+    app: test
+  ports:
+    - nodePort: 30163 # This is the port that will be exposed on the node
+      port: 8080 # This is the port that will be exposed internally in the cluster
+      targetPort: 80 # This is the port that will be exposed on the container
+

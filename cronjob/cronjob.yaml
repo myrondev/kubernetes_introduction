@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello-cron
+spec:
+  schedule: "*/1 * * * *" # run every minute
+  concurrencyPolicy: Allow # Allow, Forbid, Replace #  multiple concurrent Jobs are allowed by default.
+  startingDeadlineSeconds: 100 #  field indicates the maximum number of seconds the CronJob can take to start if it misses its scheduled time for any reason.
+  suspend: false # when set to true, prevents new Jobs from being run, but allows current executions to finish.
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - date; echo "Hello, World!"
+          restartPolicy: OnFailure

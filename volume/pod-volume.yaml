@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+spec:
+  containers:
+  - name: redis
+    image: redis
+    volumeMounts:
+    - name: redis-storage
+      mountPath: /data/redis
+  volumes:
+  - name: redis-storage
+    emptyDir: {}
+
+
+# In addition to the local disk storage provided by emptyDir
+# Kubernetes supports many different network-attached storage solutions,
+# including PD on GCE and EBS on EC2, which are preferred for critical data and will handle details such as mounting and unmounting the devices on the nodes
+
+# kubectl exec -it redis -c redis -- /bin/sh -c "kill 1"

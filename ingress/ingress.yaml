@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations: # annotations are used to configure the ingress controller, in this case
+    nginx.ingress.kubernetes.io/rewrite-target: /$1 # rewrite the path to /$1, so that the request is forwarded to the correct service
+spec:                                               # In this ingress definition, any characters captured by / will be assigned to the placeholder $1
+  rules:                                            # which is then used as a parameter in the rewrite-target annotation.
+  - host: hello-world.info
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web
+            port:
+              number: 8080
+
+# minikube addons enable ingress
+#This definition routes any request that starts with / to Service named web
+# kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
+# kubectl expose deployment web --type=NodePort --port=8080
+# minikube service web --url
+# kubectl apply -f https://k8s.io/examples/service/networking/example-ingress.yaml
+# add 172.17.0.15 hello-world.info to /etc/hosts
+# curl hello-world.info

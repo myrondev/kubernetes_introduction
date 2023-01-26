@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: production
+  labels:   # Labels are key value pairs that can be used to identify objects. They are not unique.
+    name: production
+
+# why labels:
+# 1. Grouping objects
+# 2. Perform bulk operations
+# 3. Scheduling on a specific node

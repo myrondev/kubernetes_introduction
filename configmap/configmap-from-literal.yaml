@@ -1,0 +1,1 @@
+kubectl create configmap app-config3 --from-literal=port=8080 --from-literal=environments=production

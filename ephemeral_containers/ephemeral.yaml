@@ -1,0 +1,13 @@
+#kubectl run ephemeral-pod-demo --image=k8s.gcr.io/pause:3.1
+kubectl exec -it ephemeral-pod-demo -- bash
+kubectl debug -it ephemeral-pod-demo --image=busybox:1.28 --target=ephemeral-pod-demo
+cd /proc/1/root
+
+#see all processes of container with which ephemeral container is sharing process namespace.
+
+#To browse the directories of container, We need to get inside /proc/PIDOFCONTAINER/root
+
+#CRASH LOOP CASE
+
+kubectl run ephemeral-pod-demo-2 --image=busybox:1.28 --restart=Always --command -- lss
+kubectl debug ephemeral-pod-demo-2 -it --image=busybox:1.28 --share-processes --copy-to=debug-ephemeral-pod-demo-2

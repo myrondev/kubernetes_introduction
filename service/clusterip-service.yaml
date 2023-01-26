@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nginx
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 8080 # service will be exposed internally to cluster applications on port 8080
+      targetPort: 80 # service will forward requests to port 80 on the pod
+
+# cluster ip service example, The service isn’t accessible from outside the cluster.
+
+# node port example: kubectl expose deployment nginx-deployment –name my-nginx-service –port 8080 –target-port=80 –type NodePort
